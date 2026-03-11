@@ -1,5 +1,9 @@
 package org.example.modelo;
 
-public class Vehiculo {
+public abstract class Vehiculo implements Imprimible {
+    protected String Placa;
+    protected String Ruta;
+    protected int CapacidadMaxima;
+    protected int PasajerosActuales;
     
 }
