@@ -164,6 +164,48 @@ public class menuPrincipal {
         } while (opcion != 0);
     }
 
+    public void menuReportes() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+
+        do {
+            System.out.println("\n╔══════════════════════════════════╗");
+            System.out.println("║            REPORTES              ║");
+            System.out.println("╠══════════════════════════════════╣");
+            System.out.println("║  1. Vehículo con más tickets     ║");
+            System.out.println("║  2. Total recaudado              ║");
+            System.out.println("║  3. Pasajeros por tipo           ║");
+            System.out.println("║  0. Volver                       ║");
+            System.out.println("╚══════════════════════════════════╝");
+            System.out.print("Seleccione una opción: ");
+
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+
+                case 1:
+                    System.out.println("Reporte vehículo con más tickets");
+                    break;
+
+                case 2:
+                    System.out.println("Total recaudado");
+                    break;
+
+                case 3:
+                    System.out.println("Pasajeros por tipo");
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    System.out.println(" Opción no válida.");
+            }
+
+        } while (opcion != 0);
+    }
+
 
 
 
