@@ -127,7 +127,42 @@ public class menuPrincipal {
 
         } while (opcion != 0);
     }
-    
+    public void menuTickets() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+
+        do {
+            System.out.println("\n╔══════════════════════════════════╗");
+            System.out.println("║         GESTIÓN DE TICKETS       ║");
+            System.out.println("╠══════════════════════════════════╣");
+            System.out.println("║  1. Vender ticket                ║");
+            System.out.println("║  2. Listar tickets               ║");
+            System.out.println("║  0. Volver                       ║");
+            System.out.println("╚══════════════════════════════════╝");
+            System.out.print("Seleccione una opción: ");
+
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+
+                case 1:
+                    venderTicket();
+                    break;
+
+                case 2:
+                    System.out.println("Listar tickets (pendiente service)");
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    System.out.println(" Opción no válida.");
+            }
+
+        } while (opcion != 0);
+    }
 
 
 
