@@ -18,11 +18,11 @@ public abstract class Vehiculo implements Imprimible {
         this.disponible = true;
     }
 
-    public int getCuposDisponibles() {
+    public int getCuposDisponibles() {//Calcula cuántos cupos quedan disponibles en el vehículo
         return capacidadMaxima - pasajerosActuales;
     }
 
-    public boolean ocuparCupo() {
+    public boolean ocuparCupo() {//permite subir un pasajero al vehículo, pero solo si aún hay espacio
         if (pasajerosActuales < capacidadMaxima) {
             pasajerosActuales++;
             return true;

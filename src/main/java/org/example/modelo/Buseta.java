@@ -1,4 +1,6 @@
 package org.example.modelo;
 
-public class Buseta {
+public class Buseta extends Vehiculo {
+
+    
 }
