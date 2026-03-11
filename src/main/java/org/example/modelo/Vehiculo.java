@@ -36,5 +36,6 @@ public abstract class Vehiculo implements Imprimible {
 
     public abstract String getTipo();
 
+
 }
 
