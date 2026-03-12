@@ -29,11 +29,11 @@ public class VehiculoDAO {
     }
      //metodo cargarTodo
     public List<Vehiculo> cargarTodos(){
-        List<Vehiculo> lista = new ArrayList<>();
-        cargarArchivo(BUS_FILE, "Bus" , lista);
-        cargarArchivo(BUSETA_FILE, "Buseta" , lista);
-        cargarArchivo(MICROBUS_FILE, "MicroBus" , lista);
-        return lista;
+        List<Vehiculo> vehiculos = new ArrayList<>();
+        cargarArchivo(BUS_FILE, "Bus" , vehiculos);
+        cargarArchivo(BUSETA_FILE, "Buseta" , vehiculos);
+        cargarArchivo(MICROBUS_FILE, "MicroBus" , vehiculos);
+        return vehiculos;
 
     }
     //Leer archivo
@@ -65,6 +65,18 @@ public class VehiculoDAO {
         }
     }
 
+    public void actualizarVehiculo(Vehiculo v){
+        String archivo = obtenerArchivo(v.getTipo());
+        List<Vehiculo> lista = cargarTodos();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))){
+            for (Vehiculo v1  : lista){
+                bw.write(v.getPlaca() + ";" + v.getRuta());
+                bw.newLine();
+            }
+        }catch (IOException e){
+            System.out.println("Error actualizando vehiculo");
+        }
+    }
     private String obtenerArchivo(String tipo) {
         switch (tipo) {
             case "Buseta":

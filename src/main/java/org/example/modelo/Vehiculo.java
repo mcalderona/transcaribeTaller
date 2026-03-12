@@ -29,6 +29,8 @@ public abstract class Vehiculo implements Imprimible {
         return capacidadMaxima - pasajerosActuales;
     }
 
+
+
     public boolean ocuparCupo() {//permite subir un pasajero al vehículo, pero solo si aún hay espacio
         if (pasajerosActuales < capacidadMaxima) {
             pasajerosActuales++;
