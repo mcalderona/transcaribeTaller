@@ -12,7 +12,7 @@ public class VehiculoServicio {
 
     public boolean RegistrarVehiculo(Vehiculo v) {
 
-        if (ValidarPlacaUnica(v.getPlaca()){
+        if (ValidarPlacaUnica(v.getPlaca())){
             vehiculos.add(v);
             dao.GuardarVehiculo(v);
             return true;
@@ -33,5 +33,21 @@ public class VehiculoServicio {
         return vehiculos;
     }
 
+    public boolean ValidarPlacaUnica(String placa){
+        for (Vehiculo v : vehiculos){
+            if (v.getPlaca().equalsIgnoreCase(placa)){
+                return true;
+            }
+        }
+        return false;
+
+    }
+    public boolean validarCuposDisponibles(Vehiculo vehiculo){
+        if (vehiculo.getCuposDisponibles() > 0){
+            return true;
+        }
+        return false;
+    }
+        
 
 }
