@@ -14,7 +14,7 @@ public class VehiculoServicio {
 
         if (validarPlacaUnica(v.getPlaca())){
             vehiculos.add(v);
-            dao.guardarVehiculo(v);
+            dao.guardar(v);
             return true;
         }
         return false;

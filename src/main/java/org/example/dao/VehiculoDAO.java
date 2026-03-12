@@ -1,5 +1,8 @@
 package org.example.dao;
 
+import org.example.modelo.Bus;
+import org.example.modelo.Buseta;
+import org.example.modelo.MicroBus;
 import org.example.modelo.Vehiculo;
 import java.io.*;
 import java.io.BufferedWriter;
@@ -14,7 +17,7 @@ public class VehiculoDAO {
     private static final String MICROBUS_FILE = "microbus.txt";
     private static final String BUS_FILE = "bus.txt";
 
-    public void guardarVehiculo(Vehiculo v) {
+    public void guardar(Vehiculo v) {
         String Archivo = obtenerArchivo(v.getTipo());
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(Archivo, true))) {
             bw.write(v.getPlaca() + ";" + v.getRuta());
@@ -24,7 +27,7 @@ public class VehiculoDAO {
         }
 
     }
-
+     //metodo cargarTodo
     public List<Vehiculo> cargarTodos(){
         List<Vehiculo> lista = new ArrayList<>();
         cargarArchivo(BUS_FILE, "Bus" , lista);
@@ -33,7 +36,35 @@ public class VehiculoDAO {
         return lista;
 
     }
-    
+    //Leer archivo
+    private void cargarArchivo(String archivo, String tipo, List<Vehiculo> lista){
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))){
+            String linea;
+            while((linea = br.readLine()) != null){
+                String[] datos = linea.split(";");
+                String placa = datos[0];
+                String ruta = datos[1];
+                Vehiculo v =null;
+                        switch (tipo){
+                            case "Bus":
+                                v = new Bus(placa,ruta);
+                                break;
+                            case "Buseta":
+                                v = new Buseta(placa,ruta);
+                                break;
+                            case "Microbus":
+                                v = new MicroBus(placa,ruta);
+                                break;
+                }
+                if (v != null){
+                    lista.add(v);
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     private String obtenerArchivo(String tipo) {
         switch (tipo) {
             case "Buseta":
