@@ -14,5 +14,5 @@ public class PasajeroRegular extends Pasajero{
     public double CalcularDescuento() {
         return 0;
     }
-    
+
 }
