@@ -22,5 +22,16 @@ public class VehiculoDAO {
         }
 
     }
-
+    private String ObtenerArchivo(String tipo) {
+        switch (tipo) {
+            case "Buseta":
+                return BUSETA_FILE;
+            case "Microbus":
+                return MICROBUES_FILE;
+            case "Bus":
+                return BUS_FILE;
+                default:
+                    return "vehiculo.txt";
+        }
+    }
 }
