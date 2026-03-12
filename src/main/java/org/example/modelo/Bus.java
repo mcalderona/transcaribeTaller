@@ -16,7 +16,7 @@ public class Bus extends Vehiculo {
     }
 
     @Override
-    public void ImprimirDetalle() {
+    public void imprimirDetalle() {
 
         System.out.println("Tipo: Bus");
         System.out.println("Placa: " + placa);

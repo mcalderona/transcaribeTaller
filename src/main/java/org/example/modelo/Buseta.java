@@ -18,7 +18,7 @@ public class Buseta extends Vehiculo {
 
 
     @Override
-    public void ImprimirDetalle() {
+    public void imprimirDetalle() {
 
         System.out.println("Tipo: Buseta");
         System.out.println("Placa: " + placa);

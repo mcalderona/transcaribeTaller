@@ -10,17 +10,17 @@ public class VehiculoServicio {
     private List<Vehiculo> vehiculos = new ArrayList<>();
     private VehiculoDAO dao = new VehiculoDAO();
 
-    public boolean RegistrarVehiculo(Vehiculo v) {
+    public boolean registrarVehiculo(Vehiculo v) {
 
-        if (ValidarPlacaUnica(v.getPlaca())){
+        if (validarPlacaUnica(v.getPlaca())){
             vehiculos.add(v);
-            dao.GuardarVehiculo(v);
+            dao.guardarVehiculo(v);
             return true;
         }
         return false;
     }
 
-    public Vehiculo BuscarPorPlaca(String placa){
+    public Vehiculo buscarPorPlaca(String placa){
         for (Vehiculo v : vehiculos){
             if (v.getPlaca().equalsIgnoreCase(placa)){
                 return v;
@@ -29,31 +29,37 @@ public class VehiculoServicio {
         return null;
     }
 
-    public List<Vehiculo> ListarVehiculos(){
+    public List<Vehiculo> listarVehiculos(){
         return vehiculos;
     }
 
-    public boolean ValidarPlacaUnica(String placa){
+    public boolean validarPlacaUnica(String placa){
         for (Vehiculo v : vehiculos){
             if (v.getPlaca().equalsIgnoreCase(placa)){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
 
     }
-    public boolean validarCuposDisponibles(Vehiculo vehiculo){
-        if (vehiculo.getCuposDisponibles() > 0){
+    public boolean validarCuposDisponibles(Vehiculo v){
+        if (v.getCuposDisponibles() > 0){
             return true;
         }
         return false;
     }
-        public boolean ocuparCupo(Vehiculo vehiculo){
-        if(validarCuposDisponibles(vehiculo)){
-            vehiculo.ocuparCupo();
+        public boolean ocuparCupo(Vehiculo v){
+        if(validarCuposDisponibles(v)){
+            v.ocuparCupo();
             return true;
         }
         return false;
+        }
+        public void mostarVehiculo(){
+        for (Vehiculo v : vehiculos){
+            v.imprimirDetalle();
+            System.out.println("_________________________");
+        }
         }
 
 }

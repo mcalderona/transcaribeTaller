@@ -16,7 +16,7 @@ public class MicroBus extends Vehiculo{
     }
 
     @Override
-    public void ImprimirDetalle() {
+    public void imprimirDetalle() {
 
         System.out.println("Tipo: MicroBus");
         System.out.println("Placa: " + placa);

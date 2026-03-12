@@ -38,7 +38,6 @@ public abstract class Vehiculo implements Imprimible {
     }
 
     public double getTarifaBase() {
-
         return tarifaBase;
     }
 
