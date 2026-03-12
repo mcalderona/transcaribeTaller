@@ -10,7 +10,7 @@ public class PasajeroEstudiante extends Pasajero{
         super(nombre, edad, Tipo);
     }
 
-    @Override
+
     public double CalcularDescuento() {
         return 0.15;
     }
