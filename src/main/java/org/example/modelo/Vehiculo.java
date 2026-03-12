@@ -18,6 +18,13 @@ public abstract class Vehiculo implements Imprimible {
         this.disponible = true;
     }
 
+    public String getPlaca() {
+        return placa;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
     public int getCuposDisponibles() {//Calcula cuántos cupos quedan disponibles en el vehículo
         return capacidadMaxima - pasajerosActuales;
     }
