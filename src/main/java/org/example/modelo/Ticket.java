@@ -51,14 +51,14 @@ public class Ticket {
     }public void setValorFinal(double ValorFinal) {
         this.valorFinal = ValorFinal;}
 
-    @Override
+
+
     public double calcularTotal() {
         double tarifaBase = vehiculo.getTarifaBase();
         double descuento = pasajero.CalcularDescuento();
         return tarifaBase - (tarifaBase * descuento);
     }
 
-    @Override
     public String imprimirDetalle() {
         return  "\nFecha de Compra: " + fechaCompra +
                 "\nOrigen: " + origen +
@@ -67,6 +67,4 @@ public class Ticket {
                 "\nVehículo: " + vehiculo.getplaca() +
                 "\nValor Final: $" + valorFinal;
     }
-
-
 }

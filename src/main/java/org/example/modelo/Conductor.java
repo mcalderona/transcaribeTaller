@@ -8,8 +8,8 @@ public class Conductor extends Persona{
         super();
     }
 
-    public Conductor(String nombre, int edad, String Cagetorialicencia, String Numerolicencia) {
-        super(nombre, , edad);
+    public Conductor(String nombre, String Cedula, String Cagetorialicencia, String Numerolicencia) {
+        super(nombre, Cedula);
         this.Categorialicencia = Categorialicencia;
         this.Numerolicencia =  Numerolicencia;
     }
