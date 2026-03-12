@@ -6,8 +6,8 @@ public class PasajeroEstudiante extends Pasajero{
         super();
     }
 
-    public PasajeroEstudiante(String nombre, int edad, String Tipo) {
-        super(nombre, edad, Tipo);
+    public PasajeroEstudiante(String nombre, String Cedula, String Tipo) {
+        super(nombre, Cedula, Tipo);
     }
 
 

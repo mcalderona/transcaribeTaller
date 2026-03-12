@@ -7,8 +7,8 @@ public abstract class Pasajero extends Persona{
         super();
     }
 
-    public Pasajero(String nombre, int edad, String Tipo) {
-        super(nombre, edad);
+    public Pasajero(String nombre, String Cedula, String Tipo) {
+        super(nombre, Cedula);
         this.Tipo = Tipo;
     }
 

@@ -2,14 +2,14 @@ package org.example.modelo;
 
 public abstract class Persona {
     private String nombre;
-    private int edad;
+    private String Cedula;
 
     public Persona() {
     }
 
-    public Persona(String nombre, int edad) {
+    public Persona(String nombre, String Cedula) {
         this.nombre = nombre;
-        this.edad = edad;
+        this.Cedula = Cedula;
     }
 
     public String getNombre() {
@@ -18,15 +18,15 @@ public abstract class Persona {
         this.nombre = nombre;
     }
 
-    public int getEdad() {
-        return edad;
-    }public void setEdad(int edad) {
-        this.edad = edad;
+    public String getCedula() {
+        return Cedula;
+    }public void setCedula(String Cedula) {
+        this.Cedula = Cedula;
     }
 
 
     public String imprimirDetalle(){
         return "\nNombre: " + nombre +
-                "\nEdad: " + edad;
+                "\nCedula: " + Cedula;
     }
 }

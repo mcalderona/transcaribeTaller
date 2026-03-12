@@ -9,7 +9,7 @@ public class Conductor extends Persona{
     }
 
     public Conductor(String nombre, int edad, String Cagetorialicencia, String Numerolicencia) {
-        super(nombre, edad);
+        super(nombre, , edad);
         this.Categorialicencia = Categorialicencia;
         this.Numerolicencia =  Numerolicencia;
     }
