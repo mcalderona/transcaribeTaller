@@ -7,11 +7,11 @@ import java.util.List;
 
 public class ConductorDAO {
 
-    private String ARCHIVOS = "pasajeros.txt";
+    private String ARCHIVOS = "conductores.txt";
 
     public void guardar(Conductor c) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVOS, true))) {
-            writer.write(c.getCedula() + ";" + c.getNombre() + ";" + c.getCategorialicencia() + ";" + c.getNumerolicencia());
+            writer.write(c.getCedula() + ";" + c.getNombre() + ";" + c.getNumerolicencia() + ";" + c.getCategorialicencia());
             writer.newLine();
         } catch (IOException e) {
             System.out.println("Error al guardar conductor: " + e.getMessage());
@@ -28,7 +28,7 @@ public class ConductorDAO {
             while ((linea = reader.readLine()) != null) {
                 if (!linea.trim().isEmpty()) {
                     String[] campos = linea.split(";");
-                    Conductor c = new Conductor(campos[1], Integer.parseInt(campos[2]), campos[3], campos[4]);
+                    Conductor c = new Conductor(campos[1], campos[0], campos[2], campos[3]);
                     lista.add(c);
                 }
             }
