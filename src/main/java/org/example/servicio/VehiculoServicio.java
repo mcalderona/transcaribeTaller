@@ -20,7 +20,7 @@ public class VehiculoServicio {
         return false;
     }
 
-    public Vehiculo BuscarVehiculo(String placa){
+    public Vehiculo BuscarPorPlaca(String placa){
         for (Vehiculo v : vehiculos){
             if (v.getPlaca().equalsIgnoreCase(placa)){
                 return v;
@@ -29,6 +29,9 @@ public class VehiculoServicio {
         return null;
     }
 
+    public List<Vehiculo> ListarVehiculos(){
+        return vehiculos;
+    }
 
 
 }
