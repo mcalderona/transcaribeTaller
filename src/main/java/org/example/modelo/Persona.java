@@ -1,6 +1,6 @@
 package org.example.modelo;
 
-public class Persona {
+public abstract class Persona {
     private String nombre;
     private int edad;
 
@@ -23,5 +23,11 @@ public class Persona {
 
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+
+    public String imprimirDetalle(){
+        return "\nNombre: " + nombre +
+                "\nEdad: " + edad;
     }
 }
