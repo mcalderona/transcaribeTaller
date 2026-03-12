@@ -48,6 +48,12 @@ public class VehiculoServicio {
         }
         return false;
     }
-        
+        public boolean ocuparCupo(Vehiculo vehiculo){
+        if(validarCuposDisponibles(vehiculo)){
+            vehiculo.ocuparCupo();
+            return true;
+        }
+        return false;
+        }
 
 }
