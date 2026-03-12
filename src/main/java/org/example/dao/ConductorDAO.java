@@ -28,7 +28,7 @@ public class ConductorDAO {
             while ((linea = reader.readLine()) != null) {
                 if (!linea.trim().isEmpty()) {
                     String[] campos = linea.split(";");
-                    Conductor c = new Conductor(campos[1], campos[0], campos[2], campos[3]);
+                    Conductor c = new Conductor(campos[1], campos[0], campos[3], campos[2]);
                     lista.add(c);
                 }
             }

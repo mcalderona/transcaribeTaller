@@ -1,6 +1,6 @@
 package org.example.modelo;
 
-public class Ticket {
+public class Ticket implements Calculable, Imprimible {
 
     private Pasajero pasajero;
     private Vehiculo vehiculo;
@@ -60,11 +60,12 @@ public class Ticket {
     }
 
     public String imprimirDetalle() {
-        return  "\nFecha de Compra: " + fechaCompra +
+        return  "\n===========TICKET==========="+
+                "\nFecha de Compra: " + fechaCompra +
                 "\nOrigen: " + origen +
                 "\nDestino: " + destino +
                 "\nPasajero: " + pasajero.getNombre() +
-                "\nVehículo: " + vehiculo.getplaca() +
+                "\nVehículo: " + vehiculo.getPlaca() +
                 "\nValor Final: $" + valorFinal;
     }
 }

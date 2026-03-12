@@ -24,7 +24,8 @@ public abstract class Pasajero extends Persona{
     }
 
     public String imprimirDetalle(){
-        return super.imprimirDetalle() +
+        return "=========PASAJERO=========="+
+                super.imprimirDetalle() +
                 "\nTipo: " + Tipo;
     }
 }

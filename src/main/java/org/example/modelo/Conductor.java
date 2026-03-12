@@ -32,7 +32,8 @@ public class Conductor extends Persona{
 
 
     public String imprimirDetalle(){
-        return super.imprimirDetalle() +
+        return  "===============C0NDUCTOR=============="+
+                super.imprimirDetalle() +
                 "\nNúmero de Licencia: " + Numerolicencia +
                 "\nCategoría de Licencia: " + Categorialicencia;
     }
