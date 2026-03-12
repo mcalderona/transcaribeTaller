@@ -26,9 +26,14 @@ public abstract class Vehiculo implements Imprimible {
         return ruta;
     }
     public int getCuposDisponibles() {//Calcula cuántos cupos quedan disponibles en el vehículo
+
         return capacidadMaxima - pasajerosActuales;
     }
 
+     public int tieneCupo() {
+        return pasajerosActuales - capacidadMaxima;
+
+     }
 
 
     public boolean ocuparCupo() {//permite subir un pasajero al vehículo, pero solo si aún hay espacio
