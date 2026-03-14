@@ -9,56 +9,92 @@ public class PersonaService {
 
     private List<Conductor> conductores;
     private List<Pasajero> pasajeros;
+
     private ConductorDAO conductorDAO;
     private PasajeroDAO pasajeroDAO;
 
     public PersonaService() {
-        this.conductorDAO = new ConductorDAO();
-        this.pasajeroDAO = new PasajeroDAO();
-        this.conductores = conductorDAO.cargarTodos();
-        this.pasajeros = pasajeroDAO.cargarTodos();
+
+        conductorDAO = new ConductorDAO();
+        pasajeroDAO = new PasajeroDAO();
+
+        conductores = conductorDAO.cargarTodos();
+        pasajeros = pasajeroDAO.cargarTodos();
     }
 
-    public boolean registrarConductor(Conductor c) {
-        if (!validarLicencia(c)) return false;
-        conductores.add(c);
-        conductorDAO.guardar(c);
-        return true;
+    // Registrar conductor
+    public boolean registrarConductor(Conductor c){
+
+        if(validarLicencia(c)){
+            conductores.add(c);
+            conductorDAO.guardar(c);
+            return true;
+        }
+
+        return false;
     }
 
-    public boolean registrarPasajero(Pasajero p) {
+    // Registrar pasajero
+    public boolean registrarPasajero(Pasajero p){
+
         pasajeros.add(p);
         pasajeroDAO.guardar(p);
         return true;
+
     }
 
-    public boolean asignarConductor(Conductor c, Vehiculo v) {
-        if (!validarLicencia(c)) return false;
-        v.setConductor(c);
-        return true;
+    // Buscar pasajero
+    public Pasajero buscarPasajero(String cedula){
+
+        for(Pasajero p : pasajeros){
+            if(p.getCedula().equalsIgnoreCase(cedula)){
+                return p;
+            }
+        }
+
+        return null;
     }
 
-    public Pasajero buscarPasajero(String cedula) {
-        return pasajeros.stream()
-                .filter(p -> p.getCedula().equals(cedula))
-                .findFirst().orElse(null);
+    // Buscar conductor
+    public Conductor buscarConductor(String cedula){
+
+        for(Conductor c : conductores){
+            if(c.getCedula().equalsIgnoreCase(cedula)){
+                return c;
+            }
+        }
+
+        return null;
     }
 
-    public Conductor buscarConductor(String cedula) {
-        return conductores.stream()
-                .filter(c -> c.getCedula().equals(cedula))
-                .findFirst().orElse(null);
+    // Asignar conductor a vehiculo
+    public boolean asignarConductor(Conductor c, Vehiculo v){
+
+        if(validarLicencia(c)){
+            v.setConductor(c);
+            return true;
+        }
+
+        return false;
     }
 
-    public List<Pasajero> listarPasajeros() {
+    // Listar pasajeros
+    public List<Pasajero> listarPasajeros(){
         return pasajeros;
     }
 
-    public List<Conductor> listarConductores() {
+    // Listar conductores
+    public List<Conductor> listarConductores(){
         return conductores;
     }
 
-    private boolean validarLicencia(Conductor c) {
-        return c.getNumerolicencia() != null && !c.getNumerolicencia().isEmpty();
+    // Validar licencia
+    private boolean validarLicencia(Conductor c){
+
+        if(c.getNumerolicencia() != null && !c.getNumerolicencia().isEmpty()){
+            return true;
+        }
+
+        return false;
     }
 }

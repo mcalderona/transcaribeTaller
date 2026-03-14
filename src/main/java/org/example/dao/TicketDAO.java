@@ -1,4 +1,5 @@
 package org.example.dao;
+
 import org.example.modelo.*;
 
 import java.io.*;
@@ -7,57 +8,91 @@ import java.util.List;
 
 public class TicketDAO {
 
-    private String ARCHIVOS = "tickets.txt";
+    private static final String TICKETS_FILE = "tickets.txt";
 
-    public void guardar(Ticket t){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVOS, true))) {
-            writer.write( t.getPasajero().getCedula() + ";" + t.getVehiculo().getPlaca() + ";" + t.getFechaCompra() + ";" +
-                            t.getOrigen() + ";" + t.getDestino() + ";" + t.getValorFinal());
-            writer.newLine();
+    // Guardar ticket
+    public void guardar(Ticket t) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(TICKETS_FILE, true))) {
+
+            bw.write(
+                    t.getPasajero().getCedula() + ";" +
+                            t.getVehiculo().getPlaca() + ";" +
+                            t.getFechaCompra() + ";" +
+                            t.getOrigen() + ";" +
+                            t.getDestino() + ";" +
+                            t.getValorFinal()
+            );
+
+            bw.newLine();
+
         } catch (IOException e) {
-            System.out.println("Error al guardar ticket: " + e.getMessage());
+            System.out.println("Error guardando ticket");
         }
     }
 
+    // Cargar todos los tickets
     public List<Ticket> cargarTodos(List<Pasajero> pasajeros, List<Vehiculo> vehiculos) {
-        List<Ticket> lista = new ArrayList<>();
-        File archivo = new File(ARCHIVOS);
-        if (!archivo.exists()) return lista;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+        List<Ticket> tickets = new ArrayList<>();
+
+        File archivo = new File(TICKETS_FILE);
+        if (!archivo.exists()) return tickets;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
             String linea;
-            while ((linea = reader.readLine()) != null) {
-                if (!linea.trim().isEmpty()) {
-                    String[] campos = linea.split(";");
 
-                    Pasajero pasajero = buscarPasajero(pasajeros, campos[0]);
-                    Vehiculo vehiculo = buscarVehiculo(vehiculos, campos[1]);
+            while ((linea = br.readLine()) != null) {
 
-                    if (pasajero == null || vehiculo == null) continue;
+                String[] datos = linea.split(";");
 
-                    Ticket t = new Ticket(pasajero, vehiculo, campos[2], campos[3], campos[4]);
-                    t.setValorFinal(Double.parseDouble(campos[5]));
-                    lista.add(t);
+                String cedula = datos[0];
+                String placa = datos[1];
+                String fecha = datos[2];
+                String origen = datos[3];
+                String destino = datos[4];
+                double valor = Double.parseDouble(datos[5]);
+
+                Pasajero pasajero = buscarPasajero(pasajeros, cedula);
+                Vehiculo vehiculo = buscarVehiculo(vehiculos, placa);
+
+                if (pasajero != null && vehiculo != null) {
+
+                    Ticket t = new Ticket(pasajero, vehiculo, fecha, origen, destino);
+                    t.setValorFinal(valor);
+
+                    tickets.add(t);
                 }
             }
+
         } catch (IOException e) {
-            System.out.println("Error al cargar tickets: " + e.getMessage());
+            System.out.println("Error leyendo tickets");
         }
 
-        return lista;
+        return tickets;
     }
 
+    // Buscar pasajero
     private Pasajero buscarPasajero(List<Pasajero> pasajeros, String cedula) {
+
         for (Pasajero p : pasajeros) {
-            if (p.getCedula().equals(cedula)) return p;
+            if (p.getCedula().equals(cedula)) {
+                return p;
+            }
         }
+
         return null;
     }
 
+    // Buscar vehiculo
     private Vehiculo buscarVehiculo(List<Vehiculo> vehiculos, String placa) {
+
         for (Vehiculo v : vehiculos) {
-            if (v.getPlaca().equals(placa)) return v;
+            if (v.getPlaca().equals(placa)) {
+                return v;
+            }
         }
+
         return null;
     }
 }
