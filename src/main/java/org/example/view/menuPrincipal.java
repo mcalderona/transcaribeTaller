@@ -57,18 +57,39 @@ public class menuPrincipal {
 
             switch (opcion) {
 
-                case 1:
+                case 1:  System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║      REGISTRAR VEHÍCULO      ║");
+                    System.out.println("╚══════════════════════════════╝");
+
+                    System.out.print("Ingrese tipo de vehiculo: ");
+                    String placa = scanner.nextLine();
+
+                    System.out.print("Ingrese la placa: ");
+                    String placa = scanner.nextLine();
+
+                    System.out.print("Ingrese la ruta: ");
+                    String ruta = scanner.nextLine();
+
+                    System.out.print("Ingrese la capacidad máxima: ");
+                    int capacidadMaxima = scanner.nextInt();
+
+                    System.out.print("Ingrese la tarifa base: ");
+                    double tarifaBase = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    Vehiculo v = new Vehiculo(tipo,placa,ruta,capacidadMaxima,tarifaBase);
+
                     registrarVehiculo();
                     break;
 
-                case 2:
-                    System.out.println("Listar vehículos (pendiente conectar con service)");
+                case 2: listarVehiculos();
+
                     break;
 
                 case 3:
                     System.out.print("Ingrese la placa: ");
                     String placa = scanner.nextLine();
-                    System.out.println("Buscar vehículo (pendiente conectar con service)");
+                    buscarPorPlaca();
                     break;
 
                 case 0:
@@ -103,19 +124,41 @@ public class menuPrincipal {
             switch (opcion) {
 
                 case 1:
+
+                    System.out.print("Ingrese el nombre: ");
+                    String nombre = scanner.nextLine();
+
+                    System.out.print("Ingrese la cédula: ");
+                    String cedula = scanner.nextLine();
+
+                    System.out.print("Ingrese categoria: ");
+                    String categoriaLicencia = scanner.nextLine();
+
+                    System.out.print("Ingrese numero de licencia: ");
+                    String NumeroLicencia = scanner.nextLine();
+
+                    Persona p = new Persona(nombre,cedula,categoriaLicencia,NumeroLicencia);
+
                     registrarConductor();
                     break;
 
                 case 2:
+                    System.out.print("Ingrese el nombre: ");
+                    String nom = scanner.nextLine();
+
+                    System.out.print("Ingrese la cédula: ");
+                    String c = scanner.nextLine();
+
+                    System.out.print("Ingrese categoria: ");
+                    String categoria = scanner.nextLine();
                     registrarPasajero();
                     break;
 
-                case 3:
-                    System.out.println("Listar conductores (pendiente service)");
+                case 3: listarConductores();
                     break;
 
                 case 4:
-                    System.out.println("Listar pasajeros (pendiente service)");
+                    listarPasajeros();
                     break;
 
                 case 0:
@@ -146,12 +189,35 @@ public class menuPrincipal {
 
             switch (opcion) {
 
-                case 1:
+                case 1:System.out.print("Ingrese la cédula del pasajero: ");
+                    String cedula = scanner.nextLine();
+
+                    Pasajero pasajero;
+
+                    System.out.print("Ingrese la placa del vehículo: ");
+                    String placa = scanner.nextLine();
+
+                    Vehiculo vehiculo;
+
+                    System.out.print("Ingrese la fecha de compra: ");
+                    String fechaCompra = scanner.nextLine();
+
+                    System.out.print("Ingrese el origen: ");
+                    String origen = scanner.nextLine();
+
+                    System.out.print("Ingrese el destino: ");
+                    String destino = scanner.nextLine();
+
+                    System.out.print("Ingrese el valor final: ");
+                    double valorFinal = scanner.nextDouble();
+
+                    Ticket ticket = new Ticket(pasajero, vehiculo, fechaCompra, origen, destino);
+
                     venderTicket();
                     break;
 
                 case 2:
-                    System.out.println("Listar tickets (pendiente service)");
+                    listarTickets();
                     break;
 
                 case 0:
@@ -184,15 +250,15 @@ public class menuPrincipal {
 
             switch (opcion) {
 
-                case 1:
+                case 1: vehiculoConMasTickets();
                     System.out.println("Reporte vehículo con más tickets");
                     break;
 
-                case 2:
+                case 2: totalRecaudado();
                     System.out.println("Total recaudado");
                     break;
 
-                case 3:
+                case 3: pasajerosPorTipo();
                     System.out.println("Pasajeros por tipo");
                     break;
 
@@ -205,9 +271,5 @@ public class menuPrincipal {
 
         } while (opcion != 0);
     }
-
-
-
-
 
 }
