@@ -430,7 +430,7 @@ public class menuPrincipal {
                      if (porVehiculo.isEmpty()) {
                          System.out.println("No hay tickets para el tipo: " + tipoVehiculo);
                      }
-                     } else {
+                     else {
                          for (Ticket t : porVehiculo) {
                              System.out.println(t.imprimirDetalle());
                              System.out.println("_________________________");
@@ -440,6 +440,27 @@ public class menuPrincipal {
                     System.out.println("Pendiente: requiere ticketsPorTipoVehiculo() en TicketService.");
                     break;
 
+                case 6:
+                    System.out.println("Tipos disponibles: Regular, Estudiante, Adulto Mayor");
+                    System.out.print("Ingrese tipo de pasajero: ");
+                    String tipoPasajero = scanner.nextLine();
+                    System.out.println("\n╔══════════════════════════════════╗");
+                    System.out.println("║   TICKETS POR TIPO DE PASAJERO   ║");
+                    System.out.println("╚══════════════════════════════════╝");
+
+                    List<Ticket> porPasajero = ticketService.ticketsPorTipoPasajero(tipoPasajero);
+                    if (porPasajero.isEmpty()) {
+                        System.out.println("No hay tickets para el tipo: " + tipoPasajero);
+                    } else {
+                        for (Ticket t : porPasajero) {
+                            System.out.println(t.imprimirDetalle());
+                            System.out.println("_________________________");
+                        }
+                        System.out.println("Total tickets: " + porPasajero.size());
+                    }
+                    System.out.println("Pendiente: requiere ticketsPorTipoPasajero() en TicketService.");
+                    break;
+
 
 
                 case 8:
@@ -447,6 +468,13 @@ public class menuPrincipal {
 
                 default:
                     System.out.println("Opción no válida.");
+            }
+
+
+
+
+
+
             }
 
         } while (opcion != 0);
