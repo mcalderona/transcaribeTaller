@@ -136,4 +136,19 @@ public class TicketService {
         }
         return contador;
     }
+
+    private boolean esFestivo(LocalDate fecha) {
+        LocalDate[] festivos = {
+                LocalDate.of(fecha.getYear(), 1, 1),
+                LocalDate.of(fecha.getYear(), 5, 1),
+                LocalDate.of(fecha.getYear(), 7, 20),
+                LocalDate.of(fecha.getYear(), 8, 7),
+                LocalDate.of(fecha.getYear(), 12, 8),
+                LocalDate.of(fecha.getYear(), 12, 25)
+        };
+        for (LocalDate f : festivos) {
+            if (f.equals(fecha)) return true;
+        }
+        return false;
+    }
 }
