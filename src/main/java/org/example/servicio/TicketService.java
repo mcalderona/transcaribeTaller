@@ -27,29 +27,30 @@ public class TicketService {
     }
 
     // vender ticket
-    public Ticket venderTicket(String cedula, String placa, String origen, String destino){
+    public Ticket venderTicket(String cedula, String placa, String origen, String destino) {
 
         Pasajero pasajero = personaService.buscarPasajero(cedula);
         Vehiculo vehiculo = vehiculoServicio.buscarPorPlaca(placa);
 
-        if(pasajero == null || vehiculo == null){
+        if (pasajero == null || vehiculo == null) return null;
+
+        if (!vehiculoServicio.validarCuposDisponibles(vehiculo)) return null;
+
+        LocalDate hoy = LocalDate.now();
+        int ticketsHoy = contarTicketsHoy(cedula, hoy);
+
+        if (ticketsHoy >= 3) {
+            System.out.println("Venta rechazada: el pasajero ya tiene " + ticketsHoy + " tickets para hoy.");
             return null;
         }
 
-        if(!vehiculoServicio.validarCuposDisponibles(vehiculo )){
-            return null;
-        }
+        Ticket t = new Ticket(pasajero, vehiculo, hoy.toString(), origen, destino);
 
-        Ticket t = new Ticket(
-                pasajero,
-                vehiculo,
-                LocalDate.now().toString(),
-                origen,
-                destino
-        );
+        if (esFestivo(hoy)) {
+            t.setValorFinal(t.getValorFinal() * 1.20);
+        }
 
         vehiculoServicio.ocuparCupo(vehiculo);
-
         tickets.add(t);
         dao.guardar(t);
 
