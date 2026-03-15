@@ -125,5 +125,15 @@ public class TicketService {
 
         return vehiculoMax;
     }
-}
 
+    private int contarTicketsHoy(String cedula, LocalDate hoy) {
+        int contador = 0;
+        for (Ticket t : tickets) {
+            if (t.getPasajero().getCedula().equalsIgnoreCase(cedula) &&
+                    t.getFechaCompra().equals(hoy.toString())) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+}
