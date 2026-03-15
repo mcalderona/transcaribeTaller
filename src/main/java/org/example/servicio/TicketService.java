@@ -2,11 +2,9 @@ package org.example.servicio;
 
 import org.example.dao.TicketDAO;
 import org.example.modelo.*;
-import org.example.servicio.VehiculoServicio;
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class TicketService {
 
@@ -56,64 +54,51 @@ public class TicketService {
         return t;
     }
 
-    public List<Ticket> listarTickets(){
+    public List<Ticket> listarTickets() {
         return tickets;
     }
 
-    public double totalRecaudado(){
-
+    public double totalRecaudado() {
         double total = 0;
-
-        for(Ticket t : tickets){
+        for (Ticket t : tickets) {
             total += t.getValorFinal();
         }
-
         return total;
     }
 
-    public void pasajerosPorTipo(){
-
+    public void pasajerosPorTipo() {
         int estudiantes = 0;
         int adultosMayor = 0;
         int regulares = 0;
 
-        for (Ticket t : tickets){
-
+        for (Ticket t : tickets) {
             String tipo = t.getPasajero().getTipo();
-
-            if (tipo.equalsIgnoreCase("Estudiante")){
+            if (tipo.equalsIgnoreCase("Estudiante")) {
                 estudiantes++;
-            }
-            else if (tipo.equalsIgnoreCase("Adulto Mayor")){
+            } else if (tipo.equalsIgnoreCase("Adulto Mayor")) {
                 adultosMayor++;
-            }
-            else{
+            } else {
                 regulares++;
             }
         }
 
-        System.out.println("Estudiantes: " + estudiantes);
-        System.out.println("Adultos Mayores: " + adultosMayor);
-        System.out.println("Regulares: " + regulares);
+        System.out.println("Estudiantes  : " + estudiantes);
+        System.out.println("Adultos Mayor: " + adultosMayor);
+        System.out.println("Regulares    : " + regulares);
     }
 
-    public Vehiculo vehiculoConMasTickets(){
-
+    public Vehiculo vehiculoConMasTickets() {
         Vehiculo vehiculoMax = null;
         int maxTickets = 0;
 
-        for (Vehiculo v : vehiculoServicio.listarVehiculos()){
-
+        for (Vehiculo v : vehiculoServicio.listarVehiculos()) {
             int contador = 0;
-
-            for (Ticket t : tickets){
-
-                if (t.getVehiculo().getPlaca().equalsIgnoreCase(v.getPlaca())){
+            for (Ticket t : tickets) {
+                if (t.getVehiculo().getPlaca().equalsIgnoreCase(v.getPlaca())) {
                     contador++;
                 }
             }
-
-            if (contador > maxTickets){
+            if (contador > maxTickets) {
                 maxTickets = contador;
                 vehiculoMax = v;
             }
@@ -146,5 +131,35 @@ public class TicketService {
             if (f.equals(fecha)) return true;
         }
         return false;
+    }
+
+    public List<Ticket> ticketsPorFecha(String fecha) {
+        List<Ticket> resultado = new ArrayList<>();
+        for (Ticket t : tickets) {
+            if (t.getFechaCompra().equalsIgnoreCase(fecha)) {
+                resultado.add(t);
+            }
+        }
+        return resultado;
+    }
+
+    public List<Ticket> ticketsPorTipoVehiculo(String tipoVehiculo) {
+        List<Ticket> resultado = new ArrayList<>();
+        for (Ticket t : tickets) {
+            if (t.getVehiculo().getTipo().equalsIgnoreCase(tipoVehiculo)) {
+                resultado.add(t);
+            }
+        }
+        return resultado;
+    }
+
+    public List<Ticket> ticketsPorTipoPasajero(String tipoPasajero) {
+        List<Ticket> resultado = new ArrayList<>();
+        for (Ticket t : tickets) {
+            if (t.getPasajero().getTipo().equalsIgnoreCase(tipoPasajero)) {
+                resultado.add(t);
+            }
+        }
+        return resultado;
     }
 }
