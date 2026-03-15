@@ -392,6 +392,29 @@ public class menuPrincipal {
                     ticketService.pasajerosPorTipo();
                     break;
 
+                    case 4:
+
+                    System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+                    String fecha = scanner.nextLine();
+                    System.out.println("\n╔══════════════════════════════════╗");
+                    System.out.println("║       TICKETS POR FECHA          ║");
+                    System.out.println("╚══════════════════════════════════╝");
+
+                     List<Ticket> porFecha = ticketService.ticketsPorFecha(fecha);
+                     if (porFecha.isEmpty()) {
+                         System.out.println("No hay tickets para la fecha: " + fecha);
+                     } else {
+                         for (Ticket t : porFecha) {
+                             System.out.println(t.imprimirDetalle());
+                             System.out.println("_________________________");
+                         }
+                         System.out.println("Total tickets: " + porFecha.size());
+                     }
+                    System.out.println("Pendiente: requiere ticketsPorFecha() en TicketService.");
+                    break;
+
+
+
                 case 0:
                     break;
 
