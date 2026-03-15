@@ -10,7 +10,6 @@ public class PasajeroDAO {
 
     private static final String PASAJEROS_FILE = "pasajeros.txt";
 
-    // Guardar pasajero
     public void guardar(Pasajero p) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PASAJEROS_FILE, true))) {
 
@@ -22,7 +21,6 @@ public class PasajeroDAO {
         }
     }
 
-    // Cargar todos los pasajeros
     public List<Pasajero> cargarTodos() {
 
         List<Pasajero> pasajeros = new ArrayList<>();
@@ -56,7 +54,6 @@ public class PasajeroDAO {
         return pasajeros;
     }
 
-    // Crear pasajero según tipo
     private Pasajero crearPasajero(String nombre, String cedula, String tipo) {
 
         switch (tipo) {

@@ -1,1 +1,5 @@
 678987;kkkl2;2026-03-14;valledupar;bquilla;6800.0
+678987;kkkl2;2026-03-15;Badillo;San Diego;6800.0
+678987;kkkl2;2026-03-15;Valledupar;Medellin;6800.0
+678987;kkkl2;2026-03-15;Guacoche;Los Corazones;6800.0
+987;kkkl2;2026-03-15;Patillal;La paz;8160.0

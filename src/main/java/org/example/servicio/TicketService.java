@@ -26,7 +26,6 @@ public class TicketService {
         tickets = dao.cargarTodos(ps.listarPasajeros(), vs.listarVehiculos());
     }
 
-    // vender ticket
     public Ticket venderTicket(String cedula, String placa, String origen, String destino) {
 
         Pasajero pasajero = personaService.buscarPasajero(cedula);
@@ -57,12 +56,10 @@ public class TicketService {
         return t;
     }
 
-    // listar tickets
     public List<Ticket> listarTickets(){
         return tickets;
     }
 
-    // total recaudado
     public double totalRecaudado(){
 
         double total = 0;
@@ -74,7 +71,6 @@ public class TicketService {
         return total;
     }
 
-    //Lista de Pasajeros por tipo
     public void pasajerosPorTipo(){
 
         int estudiantes = 0;
@@ -101,7 +97,6 @@ public class TicketService {
         System.out.println("Regulares: " + regulares);
     }
 
-    //Vehiculo con mas tickets vendidos
     public Vehiculo vehiculoConMasTickets(){
 
         Vehiculo vehiculoMax = null;
@@ -141,7 +136,7 @@ public class TicketService {
     private boolean esFestivo(LocalDate fecha) {
         LocalDate[] festivos = {
                 LocalDate.of(fecha.getYear(), 1, 1),
-                LocalDate.of(fecha.getYear(), 5, 1),
+                LocalDate.of(fecha.getYear(), 3, 15),
                 LocalDate.of(fecha.getYear(), 7, 20),
                 LocalDate.of(fecha.getYear(), 8, 7),
                 LocalDate.of(fecha.getYear(), 12, 8),

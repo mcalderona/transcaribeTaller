@@ -1,1 +1,2 @@
 678987;pedro;Estudiante
+987;Juan;Estudiante

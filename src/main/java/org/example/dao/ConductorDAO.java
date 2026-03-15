@@ -10,7 +10,6 @@ public class ConductorDAO {
 
     private static final String CONDUCTORES_FILE = "conductores.txt";
 
-    // Guardar conductor
     public void guardar(Conductor c) {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CONDUCTORES_FILE, true))) {
@@ -29,7 +28,6 @@ public class ConductorDAO {
         }
     }
 
-    // Cargar todos los conductores
     public List<Conductor> cargarTodos() {
 
         List<Conductor> conductores = new ArrayList<>();

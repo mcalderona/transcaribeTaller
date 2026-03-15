@@ -319,7 +319,7 @@ public class menuPrincipal {
                         System.out.println("Ticket vendido con éxito.");
                         System.out.println(ticket.imprimirDetalle());
                     } else {
-                        System.out.println("Error: pasajero o vehículo no encontrado, o sin cupos disponibles.");
+                        System.out.println("No se pudo completar la venta.");
                     }
                     break;
 

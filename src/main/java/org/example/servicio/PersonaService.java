@@ -22,7 +22,6 @@ public class PersonaService {
         pasajeros = pasajeroDAO.cargarTodos();
     }
 
-    // Registrar conductor
     public boolean registrarConductor(Conductor c){
 
         if(validarLicencia(c)){
@@ -34,7 +33,6 @@ public class PersonaService {
         return false;
     }
 
-    // Registrar pasajero
     public boolean registrarPasajero(Pasajero p){
 
         pasajeros.add(p);
@@ -43,7 +41,6 @@ public class PersonaService {
 
     }
 
-    // Buscar pasajero
     public Pasajero buscarPasajero(String cedula){
 
         for(Pasajero p : pasajeros){
@@ -55,7 +52,6 @@ public class PersonaService {
         return null;
     }
 
-    // Buscar conductor
     public Conductor buscarConductor(String cedula){
 
         for(Conductor c : conductores){
@@ -67,7 +63,6 @@ public class PersonaService {
         return null;
     }
 
-    // Asignar conductor a vehiculo
     public boolean asignarConductor(Conductor c, Vehiculo v){
 
         if(validarLicencia(c)){
@@ -78,17 +73,14 @@ public class PersonaService {
         return false;
     }
 
-    // Listar pasajeros
     public List<Pasajero> listarPasajeros(){
         return pasajeros;
     }
 
-    // Listar conductores
     public List<Conductor> listarConductores(){
         return conductores;
     }
 
-    // Validar licencia
     private boolean validarLicencia(Conductor c){
 
         if(c.getNumeroLicencia() != null && !c.getNumeroLicencia().isEmpty()){

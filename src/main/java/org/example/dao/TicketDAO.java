@@ -10,7 +10,6 @@ public class TicketDAO {
 
     private static final String TICKETS_FILE = "tickets.txt";
 
-    // Guardar ticket
     public void guardar(Ticket t) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(TICKETS_FILE, true))) {
 
@@ -30,7 +29,6 @@ public class TicketDAO {
         }
     }
 
-    // Cargar todos los tickets
     public List<Ticket> cargarTodos(List<Pasajero> pasajeros, List<Vehiculo> vehiculos) {
 
         List<Ticket> tickets = new ArrayList<>();
@@ -72,7 +70,6 @@ public class TicketDAO {
         return tickets;
     }
 
-    // Buscar pasajero
     private Pasajero buscarPasajero(List<Pasajero> pasajeros, String cedula) {
 
         for (Pasajero p : pasajeros) {
@@ -84,7 +81,6 @@ public class TicketDAO {
         return null;
     }
 
-    // Buscar vehiculo
     private Vehiculo buscarVehiculo(List<Vehiculo> vehiculos, String placa) {
 
         for (Vehiculo v : vehiculos) {
