@@ -16,12 +16,12 @@ public class Bus extends Vehiculo {
     }
 
     @Override
-    public void imprimirDetalle() {
-
-        System.out.println("Tipo: Bus");
-        System.out.println("Placa: " + placa);
-        System.out.println("Ruta: " + ruta);
-        System.out.println("Cupos disponibles: " + getCuposDisponibles());
-        System.out.println("Tarifa: " + tarifaBase);
+    public String imprimirDetalle() {
+        return
+                    "=========BUS==========" +
+                    "\nPlaca: " + placa +
+                    "\nRuta: " + ruta +
+                    "\nCupos disponibles: " + getCuposDisponibles() +
+                    "\nTarifa: " + tarifaBase;
     }
 }

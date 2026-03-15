@@ -8,6 +8,7 @@ public abstract class Vehiculo implements Imprimible {
     protected int pasajerosActuales;
     protected boolean disponible;
     protected double tarifaBase;
+    protected Conductor conductor;  // ← NUEVO
 
     public Vehiculo(String placa, String ruta, int capacidadMaxima, double tarifaBase) {
         this.placa = placa;
@@ -16,6 +17,7 @@ public abstract class Vehiculo implements Imprimible {
         this.tarifaBase = tarifaBase;
         this.pasajerosActuales = 0;
         this.disponible = true;
+        this.conductor = null;
     }
 
     public String getPlaca() {
@@ -25,18 +27,16 @@ public abstract class Vehiculo implements Imprimible {
     public String getRuta() {
         return ruta;
     }
-    public int getCuposDisponibles() {//Calcula cuántos cupos quedan disponibles en el vehículo
 
+    public int getCuposDisponibles() {
         return capacidadMaxima - pasajerosActuales;
     }
 
-     public int tieneCupo() {
+    public int tieneCupo() {
         return pasajerosActuales - capacidadMaxima;
+    }
 
-     }
-
-
-    public boolean ocuparCupo() {//permite subir un pasajero al vehículo, pero solo si aún hay espacio
+    public boolean ocuparCupo() {
         if (pasajerosActuales < capacidadMaxima) {
             pasajerosActuales++;
             return true;
@@ -48,8 +48,15 @@ public abstract class Vehiculo implements Imprimible {
         return tarifaBase;
     }
 
+    // ── Conductor ──────────────────────────────
+    public Conductor getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(Conductor conductor) {
+        this.conductor = conductor;
+    }
+    // ───────────────────────────────────────────
+
     public abstract String getTipo();
-
-
 }
-

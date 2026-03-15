@@ -10,6 +10,12 @@ public class VehiculoServicio {
     private List<Vehiculo> vehiculos = new ArrayList<>();
     private VehiculoDAO dao = new VehiculoDAO();
 
+    public VehiculoServicio() {
+        dao = new VehiculoDAO();
+        vehiculos = dao.cargarTodos();
+    }
+
+
     public boolean registrarVehiculo(Vehiculo v) {
 
         if (validarPlacaUnica(v.getPlaca())){
@@ -48,18 +54,19 @@ public class VehiculoServicio {
         }
         return false;
     }
-        public boolean ocuparCupo(Vehiculo v){
+    public boolean ocuparCupo(Vehiculo v){
         if(validarCuposDisponibles(v)){
             v.ocuparCupo();
             return true;
         }
         return false;
-        }
-        public void mostarVehiculo(){
+    }
+    public void mostarVehiculo(){
         for (Vehiculo v : vehiculos){
-            v.imprimirDetalle();
+            System.out.println(v.imprimirDetalle());
             System.out.println("_________________________");
         }
-        }
+
+    }
 
 }

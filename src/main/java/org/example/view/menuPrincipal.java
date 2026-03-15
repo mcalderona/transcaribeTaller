@@ -1,8 +1,23 @@
 package org.example.view;
 
+import org.example.modelo.*;
+import org.example.servicio.PersonaService;
+import org.example.servicio.TicketService;
+import org.example.servicio.VehiculoServicio;
+
 import java.util.Scanner;
 
 public class menuPrincipal {
+
+    private VehiculoServicio vehiculoService;
+    private PersonaService personaService;
+    private TicketService ticketService;
+
+    public menuPrincipal() {
+        this.vehiculoService = new VehiculoServicio();
+        this.personaService = new PersonaService();
+        this.ticketService = new TicketService(vehiculoService, personaService);
+    }
 
     public void menu() {
 
@@ -29,14 +44,16 @@ public class menuPrincipal {
                 case 2: menuPersonas(); break;
                 case 3: menuTickets(); break;
                 case 4: menuReportes(); break;
-                case 0: System.out.println(" Saliendo del sistema");
-                break;
-                default: System.out.println("Opcion no valida");
+                case 0: System.out.println("Saliendo del sistema..."); break;
+                default: System.out.println("Opción no válida.");
             }
 
         } while (opcion != 0);
     }
 
+    // ─────────────────────────────────────────────
+    //  MENÚ VEHÍCULOS
+    // ─────────────────────────────────────────────
     public void menuVehiculos() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -57,12 +74,14 @@ public class menuPrincipal {
 
             switch (opcion) {
 
-                case 1:  System.out.println("\n╔══════════════════════════════╗");
+                case 1:
+                    System.out.println("\n╔══════════════════════════════╗");
                     System.out.println("║      REGISTRAR VEHÍCULO      ║");
                     System.out.println("╚══════════════════════════════╝");
 
-                    System.out.print("Ingrese tipo de vehiculo: ");
-                    String placa = scanner.nextLine();
+                    System.out.println("Tipos disponibles: Bus, Buseta, MicroBus");
+                    System.out.print("Ingrese tipo de vehículo: ");
+                    String tipo = scanner.nextLine();
 
                     System.out.print("Ingrese la placa: ");
                     String placa = scanner.nextLine();
@@ -70,38 +89,71 @@ public class menuPrincipal {
                     System.out.print("Ingrese la ruta: ");
                     String ruta = scanner.nextLine();
 
-                    System.out.print("Ingrese la capacidad máxima: ");
-                    int capacidadMaxima = scanner.nextInt();
+                    Vehiculo v;
+                    switch (tipo) {
+                        case "Bus":
+                            v = new Bus(placa, ruta);
+                            break;
+                        case "Buseta":
+                            v = new Buseta(placa, ruta);
+                            break;
+                        case "MicroBus":
+                            v = new MicroBus(placa, ruta);
+                            break;
+                        default:
+                            System.out.println("Tipo de vehículo no válido.");
+                            v = null;
+                            break;
+                    }
 
-                    System.out.print("Ingrese la tarifa base: ");
-                    double tarifaBase = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    Vehiculo v = new Vehiculo(tipo,placa,ruta,capacidadMaxima,tarifaBase);
-
-                    registrarVehiculo();
+                    if (v != null) {
+                        boolean registrado = vehiculoService.registrarVehiculo(v);
+                        if (registrado) {
+                            System.out.println("Vehículo registrado con éxito.");
+                        } else {
+                            System.out.println("Error: ya existe un vehículo con esa placa.");
+                        }
+                    }
                     break;
 
-                case 2: listarVehiculos();
+                case 2:
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║        LISTA DE VEHÍCULOS    ║");
+                    System.out.println("╚══════════════════════════════╝");
 
+                    if (vehiculoService.listarVehiculos().isEmpty()) {
+                        System.out.println("No hay vehículos registrados.");
+                    } else {
+                        vehiculoService.mostarVehiculo();
+                    }
                     break;
 
                 case 3:
+
                     System.out.print("Ingrese la placa: ");
-                    String placa = scanner.nextLine();
-                    buscarPorPlaca();
+                    String placaBuscar = scanner.nextLine();
+
+                    Vehiculo encontrado = vehiculoService.buscarPorPlaca(placaBuscar);
+                    if (encontrado != null) {
+                        System.out.println(encontrado.imprimirDetalle());
+                    } else {
+                        System.out.println("No se encontró ningún vehículo con esa placa.");
+                    }
                     break;
 
                 case 0:
                     break;
 
                 default:
-                    System.out.println(" Opción no válida.");
+                    System.out.println("Opción no válida.");
             }
 
         } while (opcion != 0);
     }
 
+    // ─────────────────────────────────────────────
+    //  MENÚ PERSONAS
+    // ─────────────────────────────────────────────
     public void menuPersonas() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -124,52 +176,107 @@ public class menuPrincipal {
             switch (opcion) {
 
                 case 1:
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║     REGISTRAR CONDUCTOR      ║");
+                    System.out.println("╚══════════════════════════════╝");
 
                     System.out.print("Ingrese el nombre: ");
-                    String nombre = scanner.nextLine();
+                    String nombreC = scanner.nextLine();
 
                     System.out.print("Ingrese la cédula: ");
-                    String cedula = scanner.nextLine();
+                    String cedulaC = scanner.nextLine();
 
-                    System.out.print("Ingrese categoria: ");
+                    System.out.print("Ingrese categoría de licencia: ");
                     String categoriaLicencia = scanner.nextLine();
 
-                    System.out.print("Ingrese numero de licencia: ");
-                    String NumeroLicencia = scanner.nextLine();
+                    System.out.print("Ingrese número de licencia: ");
+                    String numeroLicencia = scanner.nextLine();
 
-                    Persona p = new Persona(nombre,cedula,categoriaLicencia,NumeroLicencia);
+                    Conductor conductor = new Conductor(nombreC, cedulaC, categoriaLicencia, numeroLicencia);
 
-                    registrarConductor();
+                    boolean conductorRegistrado = personaService.registrarConductor(conductor);
+                    if (conductorRegistrado) {
+                        System.out.println("Conductor registrado con éxito.");
+                    } else {
+                        System.out.println("Error: número de licencia inválido.");
+                    }
                     break;
 
                 case 2:
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║     REGISTRAR PASAJERO       ║");
+                    System.out.println("╚══════════════════════════════╝");
+
                     System.out.print("Ingrese el nombre: ");
-                    String nom = scanner.nextLine();
+                    String nombreP = scanner.nextLine();
 
                     System.out.print("Ingrese la cédula: ");
-                    String c = scanner.nextLine();
+                    String cedulaP = scanner.nextLine();
 
-                    System.out.print("Ingrese categoria: ");
+                    System.out.println("Tipos: Regular, Estudiante, Adulto Mayor");
+                    System.out.print("Ingrese categoría: ");
                     String categoria = scanner.nextLine();
-                    registrarPasajero();
+
+                    Pasajero pasajero;
+                    switch (categoria) {
+                        case "Estudiante":
+                            pasajero = new PasajeroEstudiante(nombreP, cedulaP, categoria);
+                            break;
+                        case "Adulto Mayor":
+                            pasajero = new PasajeroAdultoMayor(nombreP, cedulaP, categoria);
+                            break;
+                        default:
+                            pasajero = new PasajeroRegular(nombreP, cedulaP, "Regular");
+                            break;
+                    }
+
+                    personaService.registrarPasajero(pasajero);
+                    System.out.println("Pasajero registrado con éxito.");
                     break;
 
-                case 3: listarConductores();
+                case 3:
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║      LISTA DE CONDUCTORES    ║");
+                    System.out.println("╚══════════════════════════════╝");
+
+                    if (personaService.listarConductores().isEmpty()) {
+                        System.out.println("No hay conductores registrados.");
+                    } else {
+                        for (Conductor c : personaService.listarConductores()) {
+                            System.out.println(c.imprimirDetalle());
+                            System.out.println("_________________________");
+                        }
+                    }
                     break;
 
                 case 4:
-                    listarPasajeros();
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║      LISTA DE PASAJEROS      ║");
+                    System.out.println("╚══════════════════════════════╝");
+
+                    if (personaService.listarPasajeros().isEmpty()) {
+                        System.out.println("No hay pasajeros registrados.");
+                    } else {
+                        for (Pasajero p : personaService.listarPasajeros()) {
+                            System.out.println(p.imprimirDetalle());
+                            System.out.println("_________________________");
+                        }
+                    }
                     break;
 
                 case 0:
                     break;
 
                 default:
-                    System.out.println(" Opción no válida.");
+                    System.out.println("Opción no válida.");
             }
 
         } while (opcion != 0);
     }
+
+    // ─────────────────────────────────────────────
+    //  MENÚ TICKETS
+    // ─────────────────────────────────────────────
     public void menuTickets() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -189,18 +296,16 @@ public class menuPrincipal {
 
             switch (opcion) {
 
-                case 1:System.out.print("Ingrese la cédula del pasajero: ");
-                    String cedula = scanner.nextLine();
+                case 1:
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║         VENDER TICKET        ║");
+                    System.out.println("╚══════════════════════════════╝");
 
-                    Pasajero pasajero;
+                    System.out.print("Ingrese la cédula del pasajero: ");
+                    String cedulaT = scanner.nextLine();
 
                     System.out.print("Ingrese la placa del vehículo: ");
-                    String placa = scanner.nextLine();
-
-                    Vehiculo vehiculo;
-
-                    System.out.print("Ingrese la fecha de compra: ");
-                    String fechaCompra = scanner.nextLine();
+                    String placaT = scanner.nextLine();
 
                     System.out.print("Ingrese el origen: ");
                     String origen = scanner.nextLine();
@@ -208,28 +313,44 @@ public class menuPrincipal {
                     System.out.print("Ingrese el destino: ");
                     String destino = scanner.nextLine();
 
-                    System.out.print("Ingrese el valor final: ");
-                    double valorFinal = scanner.nextDouble();
+                    Ticket ticket = ticketService.venderTicket(cedulaT, placaT, origen, destino);
 
-                    Ticket ticket = new Ticket(pasajero, vehiculo, fechaCompra, origen, destino);
-
-                    venderTicket();
+                    if (ticket != null) {
+                        System.out.println("Ticket vendido con éxito.");
+                        System.out.println(ticket.imprimirDetalle());
+                    } else {
+                        System.out.println("Error: pasajero o vehículo no encontrado, o sin cupos disponibles.");
+                    }
                     break;
 
                 case 2:
-                    listarTickets();
+                    System.out.println("\n╔══════════════════════════════╗");
+                    System.out.println("║        LISTA DE TICKETS      ║");
+                    System.out.println("╚══════════════════════════════╝");
+
+                    if (ticketService.listarTickets().isEmpty()) {
+                        System.out.println("No hay tickets registrados.");
+                    } else {
+                        for (Ticket t : ticketService.listarTickets()) {
+                            System.out.println(t.imprimirDetalle());
+                            System.out.println("_________________________");
+                        }
+                    }
                     break;
 
                 case 0:
                     break;
 
                 default:
-                    System.out.println(" Opción no válida.");
+                    System.out.println("Opción no válida.");
             }
 
         } while (opcion != 0);
     }
 
+    // ─────────────────────────────────────────────
+    //  MENÚ REPORTES
+    // ─────────────────────────────────────────────
     public void menuReportes() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -250,26 +371,34 @@ public class menuPrincipal {
 
             switch (opcion) {
 
-                case 1: vehiculoConMasTickets();
-                    System.out.println("Reporte vehículo con más tickets");
+                case 1:
+                    Vehiculo vMax = ticketService.vehiculoConMasTickets();
+                    if (vMax != null) {
+                        System.out.println("\n── Vehículo con más tickets ──");
+                        System.out.println (vMax.imprimirDetalle()) ;
+                    } else {
+                        System.out.println("No hay tickets registrados aún.");
+                    }
                     break;
 
-                case 2: totalRecaudado();
-                    System.out.println("Total recaudado");
+                case 2:
+                    double total = ticketService.totalRecaudado();
+                    System.out.println("\n── Total recaudado ──");
+                    System.out.printf("$%.2f%n", total);
                     break;
 
-                case 3: pasajerosPorTipo();
-                    System.out.println("Pasajeros por tipo");
+                case 3:
+                    System.out.println("\n── Pasajeros por tipo ──");
+                    ticketService.pasajerosPorTipo();
                     break;
 
                 case 0:
                     break;
 
                 default:
-                    System.out.println(" Opción no válida.");
+                    System.out.println("Opción no válida.");
             }
 
         } while (opcion != 0);
     }
-
 }
