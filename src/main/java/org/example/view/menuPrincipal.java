@@ -356,14 +356,19 @@ public class menuPrincipal {
         int opcion;
 
         do {
-            System.out.println("\n╔══════════════════════════════════╗");
-            System.out.println("║            REPORTES              ║");
-            System.out.println("╠══════════════════════════════════╣");
-            System.out.println("║  1. Vehículo con más tickets     ║");
-            System.out.println("║  2. Total recaudado              ║");
-            System.out.println("║  3. Pasajeros por tipo           ║");
-            System.out.println("║  0. Volver                       ║");
-            System.out.println("╚══════════════════════════════════╝");
+            do {
+                System.out.println("\n╔══════════════════════════════════╗");
+                System.out.println("║            REPORTES              ║");
+                System.out.println("╠══════════════════════════════════╣");
+                System.out.println("║  1. Vehículo con más tickets     ║");
+                System.out.println("║  2. Total recaudado              ║");
+                System.out.println("║  3. Pasajeros por tipo           ║");
+                System.out.println("║  4. Tickets por fecha            ║");
+                System.out.println("║  5. Tickets por tipo de vehículo ║");
+                System.out.println("║  6. Tickets por tipo de pasajero ║");
+                System.out.println("║  7. Resumen del día              ║");
+                System.out.println("║  8. Volver                       ║");
+                System.out.println("╚══════════════════════════════════╝");
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
@@ -394,7 +399,7 @@ public class menuPrincipal {
 
                     case 4:
 
-                    System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+                    System.out.print("Ingrese la fecha (dia-Mes-año): ");
                     String fecha = scanner.nextLine();
                     System.out.println("\n╔══════════════════════════════════╗");
                     System.out.println("║       TICKETS POR FECHA          ║");
@@ -413,9 +418,31 @@ public class menuPrincipal {
                     System.out.println("Pendiente: requiere ticketsPorFecha() en TicketService.");
                     break;
 
+                case 5:
+                    System.out.println("Tipos disponibles: Bus, Buseta, MicroBus");
+                    System.out.print("Ingrese tipo de vehículo: ");
+                    String tipoVehiculo = scanner.nextLine();
+                    System.out.println("\n╔══════════════════════════════════╗");
+                    System.out.println("║   TICKETS POR TIPO DE VEHÍCULO   ║");
+                    System.out.println("╚══════════════════════════════════╝");
+
+                     List<Ticket> porVehiculo = ticketService.ticketsPorTipoVehiculo(tipoVehiculo);
+                     if (porVehiculo.isEmpty()) {
+                         System.out.println("No hay tickets para el tipo: " + tipoVehiculo);
+                     }
+                     } else {
+                         for (Ticket t : porVehiculo) {
+                             System.out.println(t.imprimirDetalle());
+                             System.out.println("_________________________");
+                         }
+                         System.out.println("Total tickets: " + porVehiculo.size());
+                     }
+                    System.out.println("Pendiente: requiere ticketsPorTipoVehiculo() en TicketService.");
+                    break;
 
 
-                case 0:
+
+                case 8:
                     break;
 
                 default:
