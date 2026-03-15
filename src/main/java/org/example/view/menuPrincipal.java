@@ -479,11 +479,11 @@ public class menuPrincipal {
                     break;
 
                 case 7:
-                    String hoy = LocalDate.now().toString();
+                    String day = LocalDate.now().toString();
                     System.out.println("\n╔══════════════════════════════════╗");
                     System.out.println("║         RESUMEN DEL DÍA          ║");
                     System.out.println("╠══════════════════════════════════╣");
-                    System.out.println("║  Fecha: " + hoy + "             ║");
+                    System.out.println("║  Fecha: " + day + "             ║");
                     System.out.println("╚══════════════════════════════════╝");
 
                     List<Ticket> ticketsHoy = ticketService.ticketsPorFecha(hoy);
