@@ -5,6 +5,7 @@ import org.example.servicio.PersonaService;
 import org.example.servicio.TicketService;
 import org.example.servicio.VehiculoServicio;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class menuPrincipal {
@@ -461,22 +462,48 @@ public class menuPrincipal {
                     System.out.println("Pendiente: requiere ticketsPorTipoPasajero() en TicketService.");
                     break;
 
+                case 7:
+                    String hoy = LocalDate.now().toString();
+                    System.out.println("\n╔══════════════════════════════════╗");
+                    System.out.println("║         RESUMEN DEL DÍA          ║");
+                    System.out.println("╠══════════════════════════════════╣");
+                    System.out.println("║  Fecha: " + hoy + "             ║");
+                    System.out.println("╚══════════════════════════════════╝");
 
+                     List<Ticket> ticketsHoy = ticketService.ticketsPorFecha(hoy);
+                     double recaudadoHoy = 0;
+                     for (Ticket t : ticketsHoy) { recaudadoHoy += t.getValorFinal(); }
+                     System.out.println("Tickets vendidos hoy : " + ticketsHoy.size());
+                     System.out.printf("Total recaudado hoy  : $%.2f%n", recaudadoHoy);
+                    System.out.println("Pendiente: requiere ticketsPorFecha() en TicketService.");
+                    break;
+
+                case 7:
+                    String hoy = LocalDate.now().toString();
+                    System.out.println("\n╔══════════════════════════════════╗");
+                    System.out.println("║         RESUMEN DEL DÍA          ║");
+                    System.out.println("╠══════════════════════════════════╣");
+                    System.out.println("║  Fecha: " + hoy + "             ║");
+                    System.out.println("╚══════════════════════════════════╝");
+
+                    List<Ticket> ticketsHoy = ticketService.ticketsPorFecha(hoy);
+                    double recaudadoHoy = 0;
+                    for (Ticket t : ticketsHoy) {
+                        recaudadoHoy += t.getValorFinal(); }
+                    System.out.println("Tickets vendidos hoy : " + ticketsHoy.size());
+                    System.out.printf("Total recaudado hoy  : $%.2f%n", recaudadoHoy);
+                    System.out.println("Pendiente: requiere ticketsPorFecha() en TicketService.");
+                    break;
 
                 case 8:
                     break;
-
                 default:
                     System.out.println("Opción no válida.");
             }
-
-
-
-
-
 
             }
 
         } while (opcion != 0);
     }
 }
+
