@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 public class menuPrincipal {
 
-    private VehiculoServicio vehiculoService;
+    private VehiculoServicio vehiculoServicio;
     private PersonaService personaService;
     private TicketService ticketService;
 
     public menuPrincipal() {
-        this.vehiculoService = new VehiculoServicio();
+        this.vehiculoServicio = new VehiculoServicio();
         this.personaService = new PersonaService();
-        this.ticketService = new TicketService(vehiculoService, personaService);
+        this.ticketService = new TicketService(vehiculoServicio, personaService);
     }
 
     public void menu() {
@@ -107,7 +107,7 @@ public class menuPrincipal {
                     }
 
                     if (v != null) {
-                        boolean registrado = vehiculoService.registrarVehiculo(v);
+                        boolean registrado = vehiculoServicio.registrarVehiculo(v);
                         if (registrado) {
                             System.out.println("Vehículo registrado con éxito.");
                         } else {
@@ -121,10 +121,10 @@ public class menuPrincipal {
                     System.out.println("║        LISTA DE VEHÍCULOS    ║");
                     System.out.println("╚══════════════════════════════╝");
 
-                    if (vehiculoService.listarVehiculos().isEmpty()) {
+                    if (vehiculoServicio.listarVehiculos().isEmpty()) {
                         System.out.println("No hay vehículos registrados.");
                     } else {
-                        vehiculoService.mostarVehiculo();
+                        vehiculoServicio.mostrarVehiculo();
                     }
                     break;
 
@@ -133,7 +133,7 @@ public class menuPrincipal {
                     System.out.print("Ingrese la placa: ");
                     String placaBuscar = scanner.nextLine();
 
-                    Vehiculo encontrado = vehiculoService.buscarPorPlaca(placaBuscar);
+                    Vehiculo encontrado = vehiculoServicio.buscarPorPlaca(placaBuscar);
                     if (encontrado != null) {
                         System.out.println(encontrado.imprimirDetalle());
                     } else {
