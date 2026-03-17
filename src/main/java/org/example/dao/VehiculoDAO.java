@@ -15,7 +15,7 @@ public class VehiculoDAO {
 
     public void guardar(Vehiculo v) {
         String archivo = obtenerArchivo(v.getTipo());
-        // ✅ Crea el archivo si no existe antes de escribir
+
         crearArchivoSiNoExiste(archivo);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true))) {
             bw.write(v.getPlaca() + ";" + v.getRuta());
@@ -35,13 +35,13 @@ public class VehiculoDAO {
 
     private void cargarArchivo(String archivo, String tipo, List<Vehiculo> lista) {
         File f = new File(archivo);
-        // ✅ Si el archivo no existe, simplemente no hay nada que cargar
+
         if (!f.exists()) return;
 
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                // ✅ Ignora líneas vacías o mal formadas
+
                 if (linea.trim().isEmpty()) continue;
                 String[] datos = linea.split(";");
                 if (datos.length < 2) continue;
@@ -75,7 +75,7 @@ public class VehiculoDAO {
         List<Vehiculo> lista = cargarTodos();
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             for (Vehiculo v1 : lista) {
-                // ✅ Corregido: usa v1 (el de la lista), no v
+
                 bw.write(v1.getPlaca() + ";" + v1.getRuta());
                 bw.newLine();
             }
@@ -84,7 +84,7 @@ public class VehiculoDAO {
         }
     }
 
-    // ✅ Método nuevo: crea el archivo vacío si no existe
+
     private void crearArchivoSiNoExiste(String archivo) {
         File f = new File(archivo);
         if (!f.exists()) {
