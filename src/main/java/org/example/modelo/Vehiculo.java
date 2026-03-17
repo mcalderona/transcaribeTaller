@@ -37,7 +37,7 @@ public abstract class Vehiculo implements Imprimible {
     public Ruta getRuta() { return ruta; }
     public void setRuta(Ruta ruta) { this.ruta = ruta; }
 
-  
+
     public String getRutaString() {
         return ruta != null ? ruta.getCodigoRuta() : "";
     }

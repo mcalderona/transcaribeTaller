@@ -1,28 +1,30 @@
 package org.example.modelo;
 
 public class Buseta extends Vehiculo {
-    //variables constantes privadas que solo la puede usar esta clase
-    private static final int CAPACIDAD = 19;
-    private static final double TARIFA = 8000;
 
-    //constructor de la clase buseta, esta llamando al constructor de la clase padre(vehiculo)
-    public Buseta(String placa, String ruta) {
-        super(placa, ruta, CAPACIDAD, TARIFA);// envia los valores al constructor de vehiculo
+    private static final int    CAPACIDAD = 19;
+    private static final double TARIFA    = 8000;
+
+    public Buseta(String placa, Ruta ruta) {
+        super(placa, ruta, CAPACIDAD, TARIFA);
+    }
+
+    public Buseta(String placa, String codigoRuta) {
+        super(placa, codigoRuta, CAPACIDAD, TARIFA);
     }
 
     @Override
-    public String getTipo() {
-        return "Buseta";
-    }
-
-
+    public String getTipo() { return "Buseta"; }
 
     @Override
     public String imprimirDetalle() {
+        String infoRuta = ruta != null
+                ? ruta.getCiudadOrigen() + " → " + ruta.getCiudadDestino() + " [" + ruta.getCodigoRuta() + "]"
+                : "Sin ruta asignada";
         return "=========BUSETA==========" +
                 "\nPlaca: " + placa +
-                "\nRuta: " + ruta +
+                "\nRuta: " + infoRuta +
                 "\nCupos disponibles: " + getCuposDisponibles() +
-                "\nTarifa: " + tarifaBase;
+                "\nTarifa: $" + tarifaBase;
     }
 }
