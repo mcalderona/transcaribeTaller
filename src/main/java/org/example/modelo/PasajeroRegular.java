@@ -1,18 +1,19 @@
 package org.example.modelo;
 
-public class PasajeroRegular extends Pasajero{
+import java.time.LocalDate;
 
-    public PasajeroRegular() {
-        super();
+public class PasajeroRegular extends Pasajero {
+
+    public PasajeroRegular() { super(); }
+
+    public PasajeroRegular(String nombre, String cedula, String tipo) {
+        super(nombre, cedula, tipo);
     }
 
-    public PasajeroRegular(String nombre, String Cedula, String Tipo) {
-        super(nombre, Cedula, Tipo);
+    public PasajeroRegular(String nombre, String cedula, String tipo, LocalDate fechaNacimiento) {
+        super(nombre, cedula, tipo, fechaNacimiento);
     }
 
-
-    public double CalcularDescuento() {
-        return 0;
-    }
-
+    @Override
+    public double CalcularDescuento() { return 0; }
 }
