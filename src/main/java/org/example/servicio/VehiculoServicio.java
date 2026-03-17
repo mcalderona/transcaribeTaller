@@ -12,9 +12,9 @@ public class VehiculoServicio {
     private VehiculoDAO    dao;
     private RutaServicio   rutaServicio;
 
-    public VehiculoServicio() {
+    public VehiculoServicio(RutaServicio rutaServicio) {
         this.dao          = new VehiculoDAO();
-        this.rutaServicio = rutaServicio;
+        this.rutaServicio = this.rutaServicio;
         vehiculos = dao.cargarTodos();
 
         enriquecerRutas();
