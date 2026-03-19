@@ -51,7 +51,10 @@ public class PasajeroDAO {
         return pasajeros;
     }
 
+
     private Pasajero crearPasajero(String nombre, String cedula, String tipo, LocalDate fecha) {
+
+
         switch (tipo) {
             case "Estudiante":
                 return new PasajeroEstudiante(nombre, cedula, tipo, fecha);
