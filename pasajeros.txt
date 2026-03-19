@@ -1,1 +1,3 @@
 678987;pedro;Estudiante
+0000;JOSE;Regular;2004-06-22
+555;JOSE COPA;Estudiante;2020-02-12

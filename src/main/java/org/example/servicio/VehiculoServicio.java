@@ -14,7 +14,7 @@ public class VehiculoServicio {
 
     public VehiculoServicio(RutaServicio rutaServicio) {
         this.dao          = new VehiculoDAO();
-        this.rutaServicio = this.rutaServicio;
+        this.rutaServicio = rutaServicio;
         vehiculos = dao.cargarTodos();
 
         enriquecerRutas();

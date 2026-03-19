@@ -1,2 +1,4 @@
 123443;mateo;124mm;C1
 12423;perro;TYT44;C1
+4444;joaco;989;C1
+222;juan;444;C1
