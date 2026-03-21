@@ -10,6 +10,10 @@ public abstract class Vehiculo implements Imprimible {
     protected double tarifaBase;
     protected Conductor conductor;
 
+    public int getCapacidadMaxima() {
+        return capacidadMaxima;
+    }
+
     public Vehiculo(String placa, Ruta ruta, int capacidadMaxima, double tarifaBase) {
         this.placa = placa;
         this.ruta = ruta;
