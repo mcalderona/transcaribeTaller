@@ -3,7 +3,7 @@ package org.example.modelo;
 public abstract class Vehiculo implements Imprimible {
 
     protected String placa;
-    protected Ruta ruta;                // CAMBIADO: era String ruta
+    protected Ruta ruta;
     protected int capacidadMaxima;
     protected int pasajerosActuales;
     protected boolean disponible;
