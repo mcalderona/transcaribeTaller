@@ -114,5 +114,21 @@ public class ReservaDAO {
         return reservas;
     }
 
-    
+    private Pasajero buscarPasajero(List<Pasajero> pasajeros, String cedula) {
+
+        for (Pasajero p : pasajeros) {
+            if (p.getCedula().equals(cedula)) return p;
+        }
+
+        return null;
+    }
+
+    private Vehiculo buscarVehiculo(List<Vehiculo> vehiculos, String placa) {
+
+        for (Vehiculo v : vehiculos) {
+            if (v.getPlaca().equals(placa)) return v;
+        }
+
+        return null;
+    }
 }
