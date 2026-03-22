@@ -45,6 +45,11 @@ public class ReservaServicio {
             return null;
         }
 
+        if (fechaViaje.isBefore(LocalDate.now())) {
+            System.out.println("Error: la fecha de viaje no puede ser anterior a hoy.");
+            return null;
+        }
+
         int reservasActivas = contarReservasActivas(vehiculo);
         int cuposOcupados   = (vehiculo.getCapacidadMaxima() - vehiculo.getCuposDisponibles())
                 + reservasActivas;
