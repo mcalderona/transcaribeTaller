@@ -71,5 +71,48 @@ public class ReservaDAO {
         }
     }
 
+    public List<Reserva> cargarTodos(List<Pasajero> pasajeros, List<Vehiculo> vehiculos) {
+
+        List<Reserva> reservas = new ArrayList<>();
+
+        File archivo = new File(RESERVAS_FILE);
+        if (!archivo.exists()) return reservas;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                if (linea.trim().isEmpty()) continue;
+
+                String[] datos = linea.split(";");
+
+                String        codigo        = datos[0];
+                String        cedula        = datos[1];
+                String        placa         = datos[2];
+                LocalDateTime fechaCreacion = LocalDateTime.parse(datos[3]);
+                LocalDate     fechaViaje    = LocalDate.parse(datos[4]);
+                Estado        estado        = Estado.valueOf(datos[5]);
+
+                Pasajero pasajero = buscarPasajero(pasajeros, cedula);
+                Vehiculo vehiculo = buscarVehiculo(vehiculos, placa);
+
+                if (pasajero != null && vehiculo != null) {
+
+                    Reserva r = new Reserva(codigo, pasajero, vehiculo, fechaCreacion, fechaViaje);
+                    r.setEstado(estado);
+
+                    reservas.add(r);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error leyendo reservas");
+        }
+
+        return reservas;
+    }
+
     
 }
