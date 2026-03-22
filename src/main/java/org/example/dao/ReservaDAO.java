@@ -31,4 +31,45 @@ public class ReservaDAO {
         }
     }
 
+    public void actualizarEstado(String codigo, String nuevoEstado) {
+
+        File archivo = new File(RESERVAS_FILE);
+        if (!archivo.exists()) return;
+
+        List<String> lineas = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                String[] datos = linea.split(";");
+
+                if (datos[0].equals(codigo)) {
+                    datos[5] = nuevoEstado;
+                    linea    = String.join(";", datos);
+                }
+
+                lineas.add(linea);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error leyendo reservas");
+            return;
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {
+
+            for (String linea : lineas) {
+                bw.write(linea);
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error actualizando reserva");
+        }
+    }
+
+    
 }
