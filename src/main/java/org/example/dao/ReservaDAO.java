@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaDAO {
-
     private static final String RESERVAS_FILE = "reservas.txt";
 
     public void guardar(Reserva r) {
@@ -31,4 +30,5 @@ public class ReservaDAO {
             System.out.println("Error guardando reserva");
         }
     }
+
 }
