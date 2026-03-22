@@ -1,5 +1,6 @@
 package org.example.servicio;
 
+import org.example.dao.ReservaDAO;
 import org.example.modelo.*;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 public class ReservaServicio {
 
     private List<Reserva>    reservas;
+    private ReservaDAO       dao;
     private VehiculoServicio vehiculoServicio;
     private PersonaService   personaService;
     private TicketService    ticketService;
@@ -22,11 +24,12 @@ public class ReservaServicio {
         this.vehiculoServicio = vehiculoServicio;
         this.personaService   = personaService;
         this.ticketService    = ticketService;
-        this.reservas         = new ArrayList<>();
-        this.contadorCodigo   = 1;
+        this.dao              = new ReservaDAO();
+        this.reservas         = dao.cargarTodos(personaService.listarPasajeros(),
+                vehiculoServicio.listarVehiculos());
+        this.contadorCodigo   = reservas.size() + 1;
+        verificarVencidas();
     }
-
-
 
     public Reserva crearReserva(String cedula, String placa, LocalDate fechaViaje) {
 
@@ -45,8 +48,9 @@ public class ReservaServicio {
         int reservasActivas = contarReservasActivas(vehiculo);
         int cuposOcupados   = (vehiculo.getCapacidadMaxima() - vehiculo.getCuposDisponibles())
                 + reservasActivas;
+
         if (cuposOcupados >= vehiculo.getCapacidadMaxima()) {
-            System.out.println("Error: el vehiculo " + placa + " no tiene cupos disponibles");
+            System.out.println("Error: el vehículo " + placa + " no tiene cupos disponibles.");
             return null;
         }
 
@@ -56,15 +60,15 @@ public class ReservaServicio {
             return null;
         }
 
-        String    codigo  = generarCodigo();
-        Reserva   reserva = new Reserva(codigo, pasajero, vehiculo,
-                LocalDateTime.now(), fechaViaje);
+        String  codigo  = generarCodigo();
+        Reserva reserva = new Reserva(codigo, pasajero, vehiculo, LocalDateTime.now(), fechaViaje);
+
         reservas.add(reserva);
+        dao.guardar(reserva);
 
         System.out.println("Reserva creada exitosamente. Código: " + codigo);
         return reserva;
     }
-
 
     public boolean cancelarReserva(String codigoReserva) {
 
@@ -81,13 +85,13 @@ public class ReservaServicio {
         }
 
         reserva.cancelar();
+        dao.actualizarEstado(codigoReserva, reserva.getEstado().toString());
+
         System.out.println("Reserva " + codigoReserva + " cancelada. Cupo liberado.");
         return true;
     }
 
-
-
-    public Ticket convertirEnTicket(String codigoReserva, String origen, String destino) {
+    public Ticket convertirATicket(String codigoReserva) {
 
         Reserva reserva = buscarPorCodigo(codigoReserva);
 
@@ -101,6 +105,10 @@ public class ReservaServicio {
             return null;
         }
 
+        Ruta ruta = reserva.getVehiculo().getRuta();
+        String origen  = ruta != null ? ruta.getCiudadOrigen()  : "";
+        String destino = ruta != null ? ruta.getCiudadDestino() : "";
+
         Ticket ticket = ticketService.venderTicket(
                 reserva.getPasajero().getCedula(),
                 reserva.getVehiculo().getPlaca(),
@@ -113,19 +121,20 @@ public class ReservaServicio {
         }
 
         reserva.convertir();
+        dao.actualizarEstado(codigoReserva, reserva.getEstado().toString());
+
         System.out.println("Reserva " + codigoReserva + " convertida en ticket exitosamente.");
         return ticket;
     }
 
-
-
-    public int verificarReservasVencidas() {
+    public int verificarVencidas() {
 
         int canceladas = 0;
 
         for (Reserva r : reservas) {
             if (r.estaActiva() && r.estaVencida()) {
                 r.cancelar();
+                dao.actualizarEstado(r.getCodigoReserva(), r.getEstado().toString());
                 canceladas++;
                 System.out.println("Reserva " + r.getCodigoReserva() +
                         " vencida y cancelada automáticamente.");
@@ -136,49 +145,55 @@ public class ReservaServicio {
         return canceladas;
     }
 
-
-
-
     public List<Reserva> listarReservasActivas() {
+
         List<Reserva> activas = new ArrayList<>();
+
         for (Reserva r : reservas) {
             if (r.estaActiva()) activas.add(r);
         }
+
         return activas;
     }
 
-    public List<Reserva> historialPorPasajero(String cedula) {
+    public List<Reserva> historialPasajero(String cedula) {
+
         List<Reserva> historial = new ArrayList<>();
+
         for (Reserva r : reservas) {
             if (r.getPasajero().getCedula().equalsIgnoreCase(cedula)) {
                 historial.add(r);
             }
         }
+
         return historial;
     }
 
     public Reserva buscarPorCodigo(String codigo) {
+
         for (Reserva r : reservas) {
             if (r.getCodigoReserva().equalsIgnoreCase(codigo)) return r;
         }
+
         return null;
     }
 
-
-
     private int contarReservasActivas(Vehiculo vehiculo) {
+
         int contador = 0;
+
         for (Reserva r : reservas) {
             if (r.estaActiva() &&
                     r.getVehiculo().getPlaca().equalsIgnoreCase(vehiculo.getPlaca())) {
                 contador++;
             }
         }
+
         return contador;
     }
 
-
     private boolean tieneReservaActiva(String cedula, String placa, LocalDate fechaViaje) {
+
         for (Reserva r : reservas) {
             if (r.estaActiva() &&
                     r.getPasajero().getCedula().equalsIgnoreCase(cedula) &&
@@ -187,6 +202,7 @@ public class ReservaServicio {
                 return true;
             }
         }
+
         return false;
     }
 
