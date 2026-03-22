@@ -6,12 +6,6 @@ import java.time.LocalDateTime;
 public class Reserva {
 
 
-    public enum Estado {
-        ACTIVA,
-        CONVERTIDA,
-        CANCELADA
-    }
-
     private String        codigoReserva;
     private Pasajero      pasajero;
     private Vehiculo      vehiculo;
